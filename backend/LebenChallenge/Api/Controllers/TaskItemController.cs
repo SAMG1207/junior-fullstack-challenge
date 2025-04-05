@@ -1,6 +1,8 @@
 using LebenChallenge.Application.DTO;
 using LebenChallenge.Application.Interfaces;
 using LebenChallenge.Application.UseCases;
+using LebenChallenge.Application.UseCases.UpdateInformationUseCase;
+using LebenChallenge.Application.UseCases.UpdatePriorityUseCase;
 using LebenChallenge.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,16 +15,29 @@ public class TaskItemController : ControllerBase
     private readonly ICreateTaskUseCase _createTaskUseCase;
     private readonly IGetAllTasksUseCase _getAllTasksUseCase;
     private readonly ICompleteTaskUseCase _completeTaskUseCase;
+    private readonly IDeleteTaskUseCase _deleteTaskUseCase;
+    private readonly IGetTaskByIdUseCase _getTaskByIdUseCase;
+    private readonly IUpdateInformationUseCase _updateInformationUseCase;
+    private readonly IUpdatePriorityUseCase _updatePriorityUseCase;
 
     public TaskItemController(
         ICreateTaskUseCase createTaskUseCase,
         ICompleteTaskUseCase completeTaskUseCase,
-        IGetAllTasksUseCase getAllTasksUseCase
+        IGetAllTasksUseCase getAllTasksUseCase,
+        IDeleteTaskUseCase deleteTaskUseCase,
+        IGetTaskByIdUseCase getTaskByIdUseCase,
+        IUpdateInformationUseCase updateInformationUseCase,
+        IUpdatePriorityUseCase updatePriorityUseCase
+
     )
     {
         _createTaskUseCase = createTaskUseCase;
         _completeTaskUseCase = completeTaskUseCase;
         _getAllTasksUseCase = getAllTasksUseCase;
+        _deleteTaskUseCase = deleteTaskUseCase;
+        _getTaskByIdUseCase = getTaskByIdUseCase;
+        _updateInformationUseCase = updateInformationUseCase;
+        _updatePriorityUseCase = updatePriorityUseCase;
     }
 
     [HttpGet]
@@ -33,9 +48,10 @@ public class TaskItemController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        throw new NotImplementedException("GetById method not implemented");
+        TaskItem task = await _getTaskByIdUseCase.ExecuteAsync(id);
+        return task != null ? Ok(task) : NotFound();
     }
 
     [HttpPost]
@@ -46,14 +62,42 @@ public class TaskItemController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        throw new NotImplementedException("Delete method not implemented");
+        await _deleteTaskUseCase.ExecuteAsync(new DeleteTaskDTO { Id = id });
+        return NoContent();
     }
 
     [HttpPut("{id}/complete")]
-    public Task<IActionResult> Complete(int id)
+    public async Task<IActionResult> Complete(int id)
     {
-        throw new NotImplementedException("Complete method not implemented");
+        CompleteTaskDTO dto = new CompleteTaskDTO { Id = id };
+        TaskItem task = await _completeTaskUseCase.ExecuteAsync(dto);
+        return task != null ? Ok(task) : NotFound();
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateDatosTarea(int id, [FromBody] DatosACambiarDTO datosACambiarDTO)
+    {
+        EditarTareaDTO editarTareaDTO = new EditarTareaDTO
+        {
+            Id = id,
+            datosACambiarDTO = datosACambiarDTO
+        };
+        TaskItem task = await _updateInformationUseCase.ExecuteAsync(editarTareaDTO);
+        return task != null ? Ok(task) : NotFound();
+
+    }
+
+    [HttpPut("{id}/priority")]
+    public async Task<IActionResult> UpdatePriority(int id, int priority)
+    {
+        AsignarPrioridadDTO asignarPrioridadDTO = new AsignarPrioridadDTO
+        {
+            Id = id,
+            Prioridad = priority
+        };
+        TaskItem task = await _updatePriorityUseCase.ExecuteAsync(asignarPrioridadDTO);
+        return task != null ? Ok(task) : NotFound();
     }
 }

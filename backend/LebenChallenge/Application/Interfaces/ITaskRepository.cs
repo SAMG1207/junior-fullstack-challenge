@@ -1,3 +1,4 @@
+using LebenChallenge.Application.DTO;
 using LebenChallenge.Domain;
 
 namespace LebenChallenge.Application.Interfaces;
@@ -9,4 +10,8 @@ public interface ITaskRepository
     Task<IEnumerable<TaskItem>> GetAllAsync();
     Task<TaskItem> UpdateAsync(TaskItem task);
     Task DeleteAsync(int id);
+
+    Task<TaskItem> EditarTarea(EditarTareaDTO editarTareaDTO);
+
+    Task<TaskItem> AsignarPrioridad(AsignarPrioridadDTO asignarPrioridadDTO);
 }

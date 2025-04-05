@@ -14,6 +14,7 @@ public class GetTaskByIdUseCase : IGetTaskByIdUseCase
 
     public Task<TaskItem> ExecuteAsync(int id)
     {
-        throw new NotImplementedException("GetTaskByIdUseCase is not implemented yet.");
+        var task = _taskRepository.GetByIdAsync(id);
+        return task;
     }
 }

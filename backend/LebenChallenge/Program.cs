@@ -1,5 +1,7 @@
 using LebenChallenge.Application.Interfaces;
 using LebenChallenge.Application.UseCases;
+using LebenChallenge.Application.UseCases.UpdateInformationUseCase;
+using LebenChallenge.Application.UseCases.UpdatePriorityUseCase;
 using LebenChallenge.Infrastructure.Persistence;
 using LebenChallenge.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +31,9 @@ builder.Services.AddScoped<IGetTaskByIdUseCase, GetTaskByIdUseCase>();
 builder.Services.AddScoped<ICompleteTaskUseCase, CompleteTaskUseCase>();
 builder.Services.AddScoped<ICreateTaskUseCase, CreateTaskUseCase>();
 builder.Services.AddScoped<IDeleteTaskUseCase, DeleteTaskUseCase>();
+builder.Services.AddScoped<IUpdatePriorityUseCase, UpdatePriorityUseCase>();
+builder.Services.AddScoped<IUpdateInformationUseCase, UpdateInformationUseCase>();
+
 
 var app = builder.Build();
 
