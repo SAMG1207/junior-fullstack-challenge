@@ -11,7 +11,7 @@ public interface ITaskRepository
     Task<TaskItem> UpdateAsync(TaskItem task);
     Task DeleteAsync(int id);
 
-    Task<TaskItem> EditarTarea(EditarTareaDTO editarTareaDTO);
+    Task<TaskItem> EditTask(UpdateTaskDTO updateTaskDTO);
 
-    Task<TaskItem> AsignarPrioridad(AsignarPrioridadDTO asignarPrioridadDTO);
+    Task<TaskItem> AssignPriority(AssignPriorityDTO assignPriorityDTO);
 }

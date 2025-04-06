@@ -1,8 +1,8 @@
 ﻿namespace LebenChallenge.Application.DTO
 {
-    public class AsignarPrioridadDTO
+    public struct AssignPriorityDTO
     {
         public int Id { get; set; }
-        public int Prioridad { get; set; } 
+        public int Priority { get; set; } 
     }
 }

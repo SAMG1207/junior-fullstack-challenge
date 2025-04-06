@@ -1,9 +1,9 @@
 ﻿namespace LebenChallenge.Application.DTO
 {
-    public class EditarTareaDTO
+    public struct UpdateTaskDTO
     {
         public int Id { get; set; }
         
-        public DatosACambiarDTO datosACambiarDTO { get; set; }
+        public ChangeDataDTO changeDataDTO { get; set; }
     }
 }

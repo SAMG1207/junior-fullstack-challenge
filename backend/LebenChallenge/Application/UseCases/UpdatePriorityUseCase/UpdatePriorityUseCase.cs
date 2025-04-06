@@ -11,9 +11,9 @@ namespace LebenChallenge.Application.UseCases.UpdatePriorityUseCase
         {
             _taskRepository = taskRepository;
         }
-        public async Task<TaskItem> ExecuteAsync(AsignarPrioridadDTO asignarPrioridadDTO)
+        public async Task<TaskItem> ExecuteAsync(AssignPriorityDTO asignarPrioridadDTO)
         {
-           return await _taskRepository.AsignarPrioridad(asignarPrioridadDTO);
+           return await _taskRepository.AssignPriority(asignarPrioridadDTO);
         }
     }
 }

@@ -5,6 +5,6 @@ namespace LebenChallenge.Application.UseCases.UpdateInformationUseCase
 {
     public interface IUpdateInformationUseCase
     {
-        Task<TaskItem> ExecuteAsync(EditarTareaDTO editarTareaDTO);
+        Task<TaskItem> ExecuteAsync(UpdateTaskDTO editarTareaDTO);
     }
 }

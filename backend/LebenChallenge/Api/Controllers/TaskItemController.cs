@@ -77,14 +77,14 @@ public class TaskItemController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateDatosTarea(int id, [FromBody] DatosACambiarDTO datosACambiarDTO)
+    public async Task<IActionResult> UpdateTaskData(int id, [FromBody] ChangeDataDTO _changeDataDTO)
     {
-        EditarTareaDTO editarTareaDTO = new EditarTareaDTO
+        UpdateTaskDTO _updateTaskDTO = new UpdateTaskDTO
         {
             Id = id,
-            datosACambiarDTO = datosACambiarDTO
+            changeDataDTO = _changeDataDTO
         };
-        TaskItem task = await _updateInformationUseCase.ExecuteAsync(editarTareaDTO);
+        TaskItem task = await _updateInformationUseCase.ExecuteAsync(_updateTaskDTO);
         return task != null ? Ok(task) : NotFound();
 
     }
@@ -92,12 +92,12 @@ public class TaskItemController : ControllerBase
     [HttpPut("{id}/priority")]
     public async Task<IActionResult> UpdatePriority(int id, int priority)
     {
-        AsignarPrioridadDTO asignarPrioridadDTO = new AsignarPrioridadDTO
+        AssignPriorityDTO assignPriorityDTO = new AssignPriorityDTO
         {
             Id = id,
-            Prioridad = priority
+            Priority = priority
         };
-        TaskItem task = await _updatePriorityUseCase.ExecuteAsync(asignarPrioridadDTO);
+        TaskItem task = await _updatePriorityUseCase.ExecuteAsync(assignPriorityDTO);
         return task != null ? Ok(task) : NotFound();
     }
 }

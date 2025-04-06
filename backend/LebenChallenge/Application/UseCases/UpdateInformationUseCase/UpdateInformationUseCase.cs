@@ -12,10 +12,10 @@ namespace LebenChallenge.Application.UseCases.UpdateInformationUseCase
         {
             _taskRepository = taskRepository;
         }
-        public async Task<TaskItem> ExecuteAsync(EditarTareaDTO editarTareaDTO)
+        public async Task<TaskItem> ExecuteAsync(UpdateTaskDTO updateTaskDTO)
         {
-           await _taskRepository.EditarTarea(editarTareaDTO); // Modificamos la tarea
-           return await _taskRepository.GetByIdAsync(editarTareaDTO.Id); // devolvemos la tarea modificada
+           await _taskRepository.EditTask(updateTaskDTO); // Modificamos la tarea
+           return await _taskRepository.GetByIdAsync(updateTaskDTO.Id); // devolvemos la tarea modificada
         }
     }
 }

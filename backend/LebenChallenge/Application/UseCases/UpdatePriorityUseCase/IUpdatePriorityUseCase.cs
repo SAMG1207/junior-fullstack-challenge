@@ -5,6 +5,6 @@ namespace LebenChallenge.Application.UseCases.UpdatePriorityUseCase
 {
     public interface IUpdatePriorityUseCase
     {
-        Task<TaskItem> ExecuteAsync(AsignarPrioridadDTO asignarPrioridadDTO);
+        Task<TaskItem> ExecuteAsync(AssignPriorityDTO asignarPrioridadDTO);
     }
 }
